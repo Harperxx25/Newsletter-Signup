@@ -7,12 +7,10 @@ const https = require("https");
 const app = express();
 
 /* Body Parser */
-app.use(bodyParser.urlencoded({
-  extened: true
-}));
+app.use(bodyParser.urlencoded({extened: true}));
 
 /* Static Folder */
-app.use(express.static("public")); /* 讓本地style.css跟圖片可以上線 */
+app.use(express.static("public")); /* Make style.css and pictures available online */
 
 /* Tracking HTML File */
 app.get("/", function(req, res) {
@@ -70,6 +68,10 @@ app.post("/failure", function(req, res){
   res.redirect("/")
 })
 
-app.listen(3000, function() {
-  console.log("connect to port 3000 successfully");
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, function() {
+  console.log("connect to the port successfully");
 });
